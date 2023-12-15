@@ -1,18 +1,19 @@
-import java.sql.*;
-
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class App {
   public static void main(String[] args) {
+    String dburl = "jdbc:sqlserver://aei-sql2.avans.nl,1443; databaseName=DatabaseNaam;";
+    String user = "usernaam";
+    String pass = "wachtwoord";
+
     try {
-      DriverManager.setLoginTimeout(20);
-      Database.connect(DriverManager
-          .getConnection("jdbc:sqlserver://localhost:1443;databaseName=DatabaseNaam;encrypt=true;", "usernaam",
-              "wachtwoord"));
+      Connection connection = DriverManager.getConnection(dburl, user, pass);
+      System.out.println("Connected!");
     } catch (SQLException e) {
-      new Alert(Alert.AlertType.ERROR, "Failed to connect to the database. Try again later.\n" + e.getMessage(),
-          ButtonType.CLOSE).show();
+      System.out.println("Oops. error!");
+      e.printStackTrace();
     }
   }
 }
