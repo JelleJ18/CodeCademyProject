@@ -19,8 +19,6 @@ public class App {
       String query = "SELECT * FROM cursist";
       Statement statement = connection.createStatement();
       ResultSet rs = statement.executeQuery(query);
-      System.out.print(String.format("| %7s | %-32s | %-24s |\n", " ", " ", " ").replace(" ", "-"));
-
       while (rs.next()) {
         String name = rs.getString("naam");
         System.out.println(name);
