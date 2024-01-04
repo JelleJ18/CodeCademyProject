@@ -20,6 +20,10 @@ public class Cursist {
     this.country = country;
   }
 
+  public void SchrijfIn() {
+    System.out.println("Ingeschreven voor *cursusnaam*");
+  }
+
   public String getName() {
     return name;
   }
