@@ -31,4 +31,3 @@ public class App {
     Application.launch(GUI.class);
   }
 }
-// hallo
