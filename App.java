@@ -1,7 +1,5 @@
 import java.sql.*;
 
-import javafx.application.Application;
-
 public class App {
 
   public static void main(String[] args) {
@@ -28,6 +26,5 @@ public class App {
       System.out.println("Oops. error!");
       e.printStackTrace();
     }
-    Application.launch(GUI.class);
   }
 }
