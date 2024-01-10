@@ -2,8 +2,11 @@ package CodeCademy.GUI;
 
 import CodeCademy.*;
 import CodeCademy.Contents.Cursist;
+import CodeCademy.Database.App;
 
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,65 +15,86 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalDateStringConverter;
 
-public class WebcastGUI extends Application implements EventHandler<ActionEvent> {
+public class WebcastGUI extends Application {
     Button button;
-    private TableView<Cursist> tableView;
+    private TableView<Cursist> tableView = new TableView<>();
     private static Connection connection = CodeCad.connection;
+    private Button refresh = new Button("Refresh");
+    private Button home = new Button("Home");
 
     @Override
     public void start(Stage stage) {
         stage.setTitle("CodeCademy Application");
 
         TableColumn<Cursist, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(cellData -> cellData.getValue().naamProperty());
+        TableColumn<Cursist, String> emailColumn = new TableColumn<>("Email");
+        TableColumn<Cursist, LocalDate> dateColumn = new TableColumn<>("Date Of Birth");
+        TableColumn<Cursist, String> genderColumn = new TableColumn<>("Gender");
+        TableColumn<Cursist, String> addressColumn = new TableColumn<>("Address");
+        TableColumn<Cursist, String> hometownColumn = new TableColumn<>("Hometown");
+        TableColumn<Cursist, String> countryColumn = new TableColumn<>("Country");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("naam"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        hometownColumn.setCellValueFactory(new PropertyValueFactory<>("hometown"));
+        countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
 
         tableView = new TableView<>();
         tableView.getColumns().add(nameColumn);
+        tableView.getColumns().add(emailColumn);
+        tableView.getColumns().add(dateColumn);
+        tableView.getColumns().add(genderColumn);
+        tableView.getColumns().add(addressColumn);
+        tableView.getColumns().add(hometownColumn);
+        tableView.getColumns().add(countryColumn);
 
-        populateTable();
+        HBox hbox = new HBox(home, refresh);
+        hbox.setSpacing(10);
+        hbox.setPadding(new Insets(10.0));
+        VBox vBox1 = new VBox(hbox, tableView);
+        refresh.setOnMouseClicked(this::populateTable);
+        emailColumn.setPrefWidth(200);
+        addressColumn.setPrefWidth(250);
+        hometownColumn.setPrefWidth(200);
+        countryColumn.setPrefWidth(150);
 
-        Scene mainView = new Scene(tableView, 600, 600);
+        populateTable(new Event(EventType.ROOT));
+
+        Scene mainView = new Scene(vBox1, 1000, 600);
+        tableView.prefHeightProperty().bind(mainView.heightProperty());
+        tableView.prefWidthProperty().bind(mainView.widthProperty());
         stage.setScene(mainView);
+        stage.setFullScreen(true);
         stage.show();
     }
 
-    @Override
-    public void handle(ActionEvent arg0) {
-        if (arg0.getSource() == button) {
-            populateTable();
-        }
-    }
-
-    private void populateTable() {
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM cursist");
-
-            ObservableList<Cursist> cursistList = FXCollections.observableArrayList();
-            while (rs.next()) {
-                cursistList.add(new Cursist(rs.getString("naam")));
-            }
-
-            tableView.setItems(cursistList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private void populateTable(Event e) {
+        tableView.setItems(FXCollections.observableArrayList(App.getCursist()));
     }
 
 }
