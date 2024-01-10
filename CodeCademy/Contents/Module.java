@@ -1,3 +1,5 @@
+package CodeCademy.Contents;
+
 public class Module {
   private String titel;
   private String versie;

@@ -1,3 +1,5 @@
+package CodeCademy.Contents;
+
 import java.time.LocalDate;
 
 public class Webcast {

@@ -1,3 +1,5 @@
+package CodeCademy.Contents;
+
 public class Certificaat {
   private int Id;
   private int beoordeling;

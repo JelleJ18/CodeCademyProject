@@ -1,8 +1,14 @@
-import java.sql.*;
+package CodeCademy;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import CodeCademy.GUI.*;
 import javafx.application.Application;
 
-public class App {
+public class CodeCad {
+  public static Connection connection;
 
   public static void main(String[] args) {
     try {
@@ -14,7 +20,7 @@ public class App {
       String password = "wachtwoord";
 
       // zorgt voor een connectie
-      Connection connection = DriverManager.getConnection(connectionUrl, username, password);
+      connection = DriverManager.getConnection(connectionUrl, username, password);
       System.out.println("Connected!");
       String query = "SELECT * FROM cursist";
       Statement statement = connection.createStatement();
@@ -28,6 +34,23 @@ public class App {
       System.out.println("Oops. error!");
       e.printStackTrace();
     }
-    Application.launch(GUI.class);
+    Application.launch(WebcastGUI.class);
   }
+
+  public static List<String> getNames() {
+    ArrayList<String> list = new ArrayList<>();
+    try {
+      String query = "SELECT * FROM cursist";
+      Statement statement = connection.createStatement();
+      ResultSet rs = statement.executeQuery(query);
+      while (rs.next()) {
+        String name = rs.getString("naam");
+        list.add(name);
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+    return list;
+  }
+
 }
