@@ -41,14 +41,15 @@ import javafx.util.converter.LocalDateStringConverter;
 public class CursistGUI extends Application {
     Button button;
     private TableView<Cursist> tableView = new TableView<>();
-    private static Connection connection = CodeCad.connection;
     private Button refresh = new Button("Refresh");
     private Button home = new Button("Home");
+    private Stage stage;
+    private MainHomeGUI homeGUI;
 
     @Override
     public void start(Stage stage) {
         stage.setTitle("CodeCademy Application");
-
+        this.stage = stage;
         TableColumn<Cursist, String> nameColumn = new TableColumn<>("Name");
         TableColumn<Cursist, String> emailColumn = new TableColumn<>("Email");
         TableColumn<Cursist, LocalDate> dateColumn = new TableColumn<>("Date Of Birth");
@@ -78,6 +79,7 @@ public class CursistGUI extends Application {
         hbox.setPadding(new Insets(10.0));
         VBox vBox1 = new VBox(hbox, tableView);
         refresh.setOnMouseClicked(this::populateTable);
+
         emailColumn.setPrefWidth(200);
         addressColumn.setPrefWidth(250);
         hometownColumn.setPrefWidth(200);
@@ -85,10 +87,10 @@ public class CursistGUI extends Application {
 
         populateTable(new Event(EventType.ROOT));
 
-        Scene mainView = new Scene(vBox1, 1000, 600);
-        tableView.prefHeightProperty().bind(mainView.heightProperty());
-        tableView.prefWidthProperty().bind(mainView.widthProperty());
-        stage.setScene(mainView);
+        Scene scene = new Scene(vBox1, 1000, 600);
+        tableView.prefHeightProperty().bind(scene.heightProperty());
+        tableView.prefWidthProperty().bind(scene.widthProperty());
+        stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
     }
