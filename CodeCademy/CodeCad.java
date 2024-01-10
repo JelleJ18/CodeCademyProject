@@ -22,14 +22,6 @@ public class CodeCad {
       // zorgt voor een connectie
       connection = DriverManager.getConnection(connectionUrl, username, password);
       System.out.println("Connected!");
-      String query = "SELECT * FROM cursist";
-      Statement statement = connection.createStatement();
-      ResultSet rs = statement.executeQuery(query);
-      while (rs.next()) {
-        String name = rs.getString("naam");
-        System.out.println(name);
-      }
-
     } catch (Exception e) {
       System.out.println("Oops. error!");
       e.printStackTrace();
