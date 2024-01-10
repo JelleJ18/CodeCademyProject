@@ -38,7 +38,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
-public class WebcastGUI extends Application {
+public class CursistGUI extends Application {
     Button button;
     private TableView<Cursist> tableView = new TableView<>();
     private static Connection connection = CodeCad.connection;
