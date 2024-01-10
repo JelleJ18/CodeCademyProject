@@ -1,6 +1,7 @@
 package CodeCademy.Database;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import CodeCademy.*;
@@ -16,13 +17,35 @@ public class App {
 
   }
 
+  public static void createCursist(Cursist cursist) {
+    try {
+      PreparedStatement insertStatement = connection.prepareStatement(
+          "INSERT INTO Cursist(naam, email, dateOfBirth, gender, address, hometown, country)\n" +
+              "VALUES(?, ?, ?, ?, ?, ?, ?)");
+      insertStatement.setString(1, cursist.nameProperty().get());
+      insertStatement.setString(2, cursist.emailProperty().get());
+      LocalDate dateOfString = cursist.dateOfBirthProperty().get();
+      java.sql.Date sqlDate = java.sql.Date.valueOf(dateOfString);
+      insertStatement.setDate(3, sqlDate);
+      insertStatement.setString(4, cursist.genderProperty().get());
+      insertStatement.setString(5, cursist.addressProperty().get());
+      insertStatement.setString(6, cursist.hometownProperty().get());
+      insertStatement.setString(7, cursist.countryProperty().get());
+
+      insertStatement.executeQuery();
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+
+  }
+
   public static List<Cursist> getCursist(int offset) {
 
     ArrayList<Cursist> list = new ArrayList<>();
 
     try {
       PreparedStatement selectCursist = connection.prepareStatement(
-          "SELECT * FROM Cursist ORDER BY naam OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY");
+          "SELECT * FROM Cursist ORDER BY naam OFFSET ? ROWS FETCH NEXT 100 ROWS ONLY");
 
       selectCursist.setInt(1, offset);
 

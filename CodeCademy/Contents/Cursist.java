@@ -8,9 +8,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Cursist {
-  private final StringProperty name;
+  private StringProperty name;
   private StringProperty email;
-  private final ObjectProperty<LocalDate> dateOfBirth;
+  private ObjectProperty<LocalDate> dateOfBirth;
   private StringProperty gender;
   private StringProperty address;
   private StringProperty hometown;
@@ -28,20 +28,32 @@ public class Cursist {
     this.country = new SimpleStringProperty(country);
   }
 
-  public String getNaam() {
+  public StringProperty nameProperty() {
+    return name;
+  }
+
+  public String getName() {
     return name.get();
   }
 
-  public void setNaam(String naam) {
-    this.name.set(naam);
-  }
-
-  public StringProperty naamProperty() {
-    return name;
+  public void setName(String name) {
+    this.name.set(name);
   }
 
   public StringProperty emailProperty() {
     return email;
+  }
+
+  public String getEmail() {
+    return email.get();
+  }
+
+  public void setEmail(String email) {
+    this.email.set(email);
+  }
+
+  public ObjectProperty<LocalDate> dateOfBirthProperty() {
+    return dateOfBirth;
   }
 
   public LocalDate getDateOfBirth() {
@@ -52,24 +64,52 @@ public class Cursist {
     this.dateOfBirth.set(dateOfBirth);
   }
 
-  public ObjectProperty<LocalDate> dateOfBirthProperty() {
-    return dateOfBirth;
-  }
-
   public StringProperty genderProperty() {
     return gender;
+  }
+
+  public String getGender() {
+    return gender.get();
+  }
+
+  public void setGender(String gender) {
+    this.gender.set(gender);
   }
 
   public StringProperty addressProperty() {
     return address;
   }
 
+  public String getAddress() {
+    return address.get();
+  }
+
+  public void setAddress(String address) {
+    this.address.set(address);
+  }
+
   public StringProperty hometownProperty() {
     return hometown;
   }
 
+  public String getHometown() {
+    return hometown.get();
+  }
+
+  public void setHometown(String hometown) {
+    this.hometown.set(hometown);
+  }
+
   public StringProperty countryProperty() {
     return country;
+  }
+
+  public String getCountry() {
+    return country.get();
+  }
+
+  public void setCountry(String country) {
+    this.country.set(country);
   }
 
 }

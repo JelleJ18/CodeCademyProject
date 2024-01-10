@@ -43,21 +43,22 @@ public class CursistGUI extends Application {
     private TableView<Cursist> tableView = new TableView<>();
     private Button refresh = new Button("Refresh");
     private Button home = new Button("Home");
-    private Stage stage;
-    private MainHomeGUI homeGUI;
+    private Button create = new Button("Create");
+    private Button edit = new Button("Edit");
+    private Button delete = new Button("Delete");
+
+    TableColumn<Cursist, String> nameColumn = new TableColumn<>("Name");
+    TableColumn<Cursist, String> emailColumn = new TableColumn<>("Email");
+    TableColumn<Cursist, LocalDate> dateColumn = new TableColumn<>("Date Of Birth");
+    TableColumn<Cursist, String> genderColumn = new TableColumn<>("Gender");
+    TableColumn<Cursist, String> addressColumn = new TableColumn<>("Address");
+    TableColumn<Cursist, String> hometownColumn = new TableColumn<>("Hometown");
+    TableColumn<Cursist, String> countryColumn = new TableColumn<>("Country");
 
     @Override
     public void start(Stage stage) {
         stage.setTitle("CodeCademy Application");
-        this.stage = stage;
-        TableColumn<Cursist, String> nameColumn = new TableColumn<>("Name");
-        TableColumn<Cursist, String> emailColumn = new TableColumn<>("Email");
-        TableColumn<Cursist, LocalDate> dateColumn = new TableColumn<>("Date Of Birth");
-        TableColumn<Cursist, String> genderColumn = new TableColumn<>("Gender");
-        TableColumn<Cursist, String> addressColumn = new TableColumn<>("Address");
-        TableColumn<Cursist, String> hometownColumn = new TableColumn<>("Hometown");
-        TableColumn<Cursist, String> countryColumn = new TableColumn<>("Country");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("naam"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
         genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
@@ -73,12 +74,24 @@ public class CursistGUI extends Application {
         tableView.getColumns().add(addressColumn);
         tableView.getColumns().add(hometownColumn);
         tableView.getColumns().add(countryColumn);
+        create.setPrefWidth(150);
+        edit.setPrefWidth(150);
+        delete.setPrefWidth(150);
 
         HBox hbox = new HBox(home, refresh);
         hbox.setSpacing(10);
         hbox.setPadding(new Insets(10.0));
         VBox vBox1 = new VBox(hbox, tableView);
+        VBox vbox2 = new VBox(create, edit, delete);
+        vbox2.setStyle("-fx-padding: 45 0 0 0;");
+        vbox2.setSpacing(10);
+        HBox hBox2 = new HBox(vBox1, vbox2);
+
+        home.setOnMouseClicked(this::goHome);
         refresh.setOnMouseClicked(this::populateTable);
+        create.setOnMouseClicked(this::createTable);
+        edit.setOnMouseClicked(this::editTable);
+        delete.setOnMouseClicked(this::deleteTable);
 
         emailColumn.setPrefWidth(200);
         addressColumn.setPrefWidth(250);
@@ -87,7 +100,7 @@ public class CursistGUI extends Application {
 
         populateTable(new Event(EventType.ROOT));
 
-        Scene scene = new Scene(vBox1, 1000, 600);
+        Scene scene = new Scene(hBox2, 1206, 700);
         tableView.prefHeightProperty().bind(scene.heightProperty());
         tableView.prefWidthProperty().bind(scene.widthProperty());
         stage.setScene(scene);
@@ -97,6 +110,22 @@ public class CursistGUI extends Application {
 
     private void populateTable(Event e) {
         tableView.setItems(FXCollections.observableArrayList(App.getCursist()));
+    }
+
+    private void goHome(Event e) {
+        System.out.println("Going home");
+    }
+
+    private void createTable(Event e) {
+        System.out.println("Creating");
+    }
+
+    private void editTable(Event e) {
+        System.out.println("Editing");
+    }
+
+    private void deleteTable(Event e) {
+        System.out.println("Deleting");
     }
 
 }

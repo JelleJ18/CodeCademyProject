@@ -7,6 +7,7 @@ import CodeCademy.Database.App;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.net.MalformedURLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,41 +50,44 @@ public class CursistCreationGUI extends Application {
     private Stage stage;
     private MainHomeGUI homeGUI;
 
+    // Inputs
+    private TextField nameField;
+    private TextField emailField;
+    private DatePicker dobPicker;
+    private ComboBox<String> genderComboBox;
+    private TextArea addressArea;
+    private TextField cityField;
+    private TextField countryField;
+
     @Override
     public void start(Stage stage) {
+        this.stage = stage;
         stage.setTitle("Nieuwe Cursist");
 
         Label nameLabel = new Label("Naam:");
-        TextField nameField = new TextField();
+        nameField = new TextField();
 
         Label emailLabel = new Label("E-mail:");
-        TextField emailField = new TextField();
+        emailField = new TextField();
 
         Label dobLabel = new Label("Geboortedatum:");
-        DatePicker dobPicker = new DatePicker();
+        dobPicker = new DatePicker();
 
         Label genderLabel = new Label("Geslacht:");
-        ComboBox<String> genderComboBox = new ComboBox<>();
+        genderComboBox = new ComboBox<>();
         genderComboBox.getItems().addAll("Man", "Vrouw", "Anders");
 
         Label addressLabel = new Label("Adres:");
-        TextArea addressArea = new TextArea();
+        addressArea = new TextArea();
 
         Label cityLabel = new Label("Woonplaats:");
-        TextField cityField = new TextField();
+        cityField = new TextField();
 
         Label countryLabel = new Label("Land:");
-        TextField countryField = new TextField();
+        countryField = new TextField();
 
         Button saveButton = new Button("Opslaan");
-        saveButton.setOnAction(e -> saveCursistData(
-                nameField.getText(),
-                emailField.getText(),
-                dobPicker.getValue(),
-                genderComboBox.getValue(),
-                addressArea.getText(),
-                cityField.getText(),
-                countryField.getText()));
+        saveButton.setOnMouseClicked(this::submitData);
 
         VBox layout = new VBox(10, nameLabel, nameField, emailLabel, emailField,
                 dobLabel, dobPicker, genderLabel, genderComboBox,
@@ -94,15 +98,23 @@ public class CursistCreationGUI extends Application {
         stage.show();
     }
 
-    private void saveCursistData(String naam, String email, LocalDate geboortedatum, String geslacht, String adres,
-            String woonplaats, String land) {
-        // Implementeer de logica om cursistgegevens op te slaan in de database
-        // Voorbeeld: aanmaken van een nieuwe Cursist en opslaan in de database
-        Cursist nieuweCursist = new Cursist(naam, email, geboortedatum, geslacht, adres, woonplaats, land);
-        // Opslaan van 'nieuweCursist' in de database via de juiste methode of klasse
-    }
+    private void submitData(Event e) {
+        String selectedGender = genderComboBox.getSelectionModel().getSelectedItem();
+        try {
+            App.createCursist(
+                    new Cursist(
+                            nameField.getText(),
+                            emailField.getText(),
+                            dobPicker.getValue(),
+                            selectedGender,
+                            addressArea.getText(),
+                            cityField.getText(),
+                            countryField.getText()));
+        } catch (NumberFormatException error) {
+            System.out.println(error.getMessage());
+            return;
+        }
 
-    public static void main(String[] args) {
-        launch(args);
+        stage.close();
     }
 }
