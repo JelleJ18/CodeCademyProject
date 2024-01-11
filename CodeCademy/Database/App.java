@@ -38,7 +38,7 @@ public class App {
       if (e.getSQLState().equals("23505")) {
         System.out.println("Duplicate primary key!!");
       } else {
-        System.out.println("Foutje in het programma");
+        System.out.println("Dit email zit al in het systeem!");
       }
     }
 
