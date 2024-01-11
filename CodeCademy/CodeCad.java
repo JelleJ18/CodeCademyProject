@@ -26,7 +26,7 @@ public class CodeCad {
       System.out.println("Oops. error!");
       e.printStackTrace();
     }
-    Application.launch(CursistGUI.class);
+    Application.launch(CursistCreationGUI.class);
   }
 
   public static List<String> getNames() {
