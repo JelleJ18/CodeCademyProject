@@ -34,7 +34,12 @@ public class App {
 
       insertStatement.executeQuery();
     } catch (SQLException e) {
-      System.out.println(e.getMessage());
+      // Handle SQL exceptions, including duplicate primary key errors
+      if (e.getSQLState().equals("23505")) {
+        System.out.println("Duplicate primary key");
+      } else {
+        e.printStackTrace();
+      }
     }
 
   }
