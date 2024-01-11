@@ -38,7 +38,7 @@ public class App {
       if (e.getSQLState().equals("23505")) {
         System.out.println("Duplicate primary key!!");
       } else {
-        e.printStackTrace();
+        System.out.println("Foutje in het programma");
       }
     }
 
