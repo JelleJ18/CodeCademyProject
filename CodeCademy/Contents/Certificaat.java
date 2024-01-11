@@ -4,6 +4,7 @@ public class Certificaat {
   private int Id;
   private int beoordeling;
   private String medewerkerNaam;
+  // certiciaat
 
   public Certificaat(int id, int beoordeling, String medewerkerNaam) {
     Id = id;
