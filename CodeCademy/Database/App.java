@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import CodeCademy.*;
 import CodeCademy.Contents.Cursist;
-import CodeCademy.Contents.Webcast;
-import CodeCademy.GUI.CursistGUI;
-import javafx.application.Application;
 
 public class App {
   private static Connection connection = CodeCad.connection;

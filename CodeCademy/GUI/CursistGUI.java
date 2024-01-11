@@ -40,6 +40,7 @@ import javafx.util.converter.LocalDateStringConverter;
 
 public class CursistGUI extends Application {
     Button button;
+    public Scene scene;
     private TableView<Cursist> tableView = new TableView<>();
     private Button refresh = new Button("Refresh");
     private Button home = new Button("Home");
@@ -100,7 +101,7 @@ public class CursistGUI extends Application {
 
         populateTable(new Event(EventType.ROOT));
 
-        Scene scene = new Scene(hBox2, 1206, 700);
+        scene = new Scene(hBox2, 1206, 700);
         tableView.prefHeightProperty().bind(scene.heightProperty());
         tableView.prefWidthProperty().bind(scene.widthProperty());
         stage.setScene(scene);
