@@ -12,4 +12,5 @@ public class Certificaat {
     }
 
     // Voeg getters en setters toe voor de velden
+    // hoi
 }
