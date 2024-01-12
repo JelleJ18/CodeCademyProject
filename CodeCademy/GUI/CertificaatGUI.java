@@ -43,8 +43,4 @@ public class CertificaatGUI extends Application {
         Certificaat nieuwCertificaat = new Certificaat(certificaatID, beoordeling, medewerkerNaam);
         // Opslaan van 'nieuwCertificaat' in de database via de juiste methode of klasse
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

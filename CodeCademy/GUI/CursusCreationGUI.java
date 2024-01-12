@@ -87,8 +87,4 @@ public class CursusCreationGUI extends Application {
         Cursus nieuweCursus = new Cursus(cursusNaam, onderwerp, introductietekst, niveau);
         // Opslaan van 'nieuweCursus' in de database via de juiste methode of klasse
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
