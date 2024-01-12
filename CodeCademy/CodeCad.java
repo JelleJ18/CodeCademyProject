@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import CodeCademy.Database.App;
 import CodeCademy.GUI.*;
 import javafx.application.Application;
 
@@ -26,7 +27,7 @@ public class CodeCad {
       System.out.println("Oops. error!");
       e.printStackTrace();
     }
-    Application.launch(CursistCreationGUI.class);
+    Application.launch(GuiMain.class);
   }
 
   public static List<String> getNames() {

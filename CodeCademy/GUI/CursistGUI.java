@@ -38,7 +38,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.converter.LocalDateStringConverter;
 
-public class CursistGUI extends Application {
+public class CursistGUI extends SceneWrapper {
     Button button;
     public Scene scene;
     private TableView<Cursist> tableView = new TableView<>();
@@ -56,8 +56,8 @@ public class CursistGUI extends Application {
     TableColumn<Cursist, String> hometownColumn = new TableColumn<>("Hometown");
     TableColumn<Cursist, String> countryColumn = new TableColumn<>("Country");
 
-    @Override
-    public void start(Stage stage) {
+    public CursistGUI(Stage stage) {
+        super(stage);
         stage.setTitle("CodeCademy Application");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -114,7 +114,7 @@ public class CursistGUI extends Application {
     }
 
     private void goHome(Event e) {
-        System.out.println("Going home");
+        GuiMain.SCENE_MANAGER.switchScene(SceneType.HOME);
     }
 
     private void createTable(Event e) {
