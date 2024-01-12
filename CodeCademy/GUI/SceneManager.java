@@ -18,13 +18,14 @@ public class SceneManager {
     this.mainStage = mainStage;
 
     this.scenes = new HashMap<>(Map.ofEntries(
-        Map.entry(SceneType.CURSIST, new CursistGUI(mainStage)),
-        Map.entry(SceneType.HOME, new MainHomeGUI(mainStage))));
+        Map.entry(SceneType.HOME, new MainHomeGUI(mainStage)),
+        Map.entry(SceneType.CURSIST, new CursistGUI(mainStage))));
 
     this.scenes.get(splash).show();
   }
 
   public void switchScene(SceneType scene) {
+    System.out.println("Switching");
     this.scenes.get(scene).show();
     this.currentScene = scene;
   }

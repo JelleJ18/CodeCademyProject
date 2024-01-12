@@ -10,8 +10,8 @@ public class GuiMain extends Application {
   @Override
   public void start(Stage stage) {
     stage.setTitle("Cadmycode");
-    stage.show();
-
     SCENE_MANAGER = new SceneManager(stage);
+    SCENE_MANAGER.switchScene(SceneType.HOME);
+    stage.show();
   }
 }

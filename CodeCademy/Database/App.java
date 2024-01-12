@@ -10,10 +10,6 @@ import CodeCademy.Contents.Cursist;
 public class App {
   private static Connection connection = CodeCad.connection;
 
-  public static void main(String[] args) {
-
-  }
-
   public static void createCursist(Cursist cursist) {
     try {
       PreparedStatement insertStatement = connection.prepareStatement(

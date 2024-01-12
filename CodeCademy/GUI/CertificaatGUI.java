@@ -6,10 +6,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class CertificaatGUI extends Application {
+public class CertificaatGUI extends SceneWrapper {
 
-    @Override
-    public void start(Stage stage) {
+    public CertificaatGUI(Stage stage) {
+        super(stage);
         stage.setTitle("Certificaat");
 
         Label certificaatIDLabel = new Label("Certificaat ID:");
@@ -32,9 +32,7 @@ public class CertificaatGUI extends Application {
                 medewerkerNaamLabel, medewerkerNaamField,
                 saveButton);
 
-        Scene scene = new Scene(layout, 400, 250);
-        stage.setScene(scene);
-        stage.show();
+        this.scene = new Scene(layout, 400, 250);
     }
 
     private void saveCertificaatData(String certificaatID, String beoordeling, String medewerkerNaam) {

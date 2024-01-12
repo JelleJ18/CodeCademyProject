@@ -42,12 +42,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.time.LocalDate;
 
-public class CursistCreationGUI extends Application {
+public class CursistCreationGUI extends SceneWrapper {
     Button button;
     private TableView<Cursist> tableView = new TableView<>();
     private Button refresh = new Button("Refresh");
     private Button home = new Button("Home");
-    private Stage stage;
     private MainHomeGUI homeGUI;
 
     // Inputs
@@ -59,11 +58,8 @@ public class CursistCreationGUI extends Application {
     private TextField cityField;
     private TextField countryField;
 
-    @Override
-    public void start(Stage stage) {
-        this.stage = stage;
-        stage.setTitle("Nieuwe Cursist");
-
+    public CursistCreationGUI(Stage stage) {
+        super(stage);
         Label nameLabel = new Label("Naam:");
         nameField = new TextField();
 
@@ -93,9 +89,7 @@ public class CursistCreationGUI extends Application {
                 dobLabel, dobPicker, genderLabel, genderComboBox,
                 addressLabel, addressArea, cityLabel, cityField, countryLabel, countryField, saveButton);
 
-        Scene scene = new Scene(layout, 400, 500);
-        stage.setScene(scene);
-        stage.show();
+        this.scene = new Scene(layout, 400, 500);
     }
 
     private void submitData(Event e) {

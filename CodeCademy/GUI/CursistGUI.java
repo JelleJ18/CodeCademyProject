@@ -40,7 +40,6 @@ import javafx.util.converter.LocalDateStringConverter;
 
 public class CursistGUI extends SceneWrapper {
     Button button;
-    public Scene scene;
     private TableView<Cursist> tableView = new TableView<>();
     private Button refresh = new Button("Refresh");
     private Button home = new Button("Home");
@@ -58,7 +57,6 @@ public class CursistGUI extends SceneWrapper {
 
     public CursistGUI(Stage stage) {
         super(stage);
-        stage.setTitle("CodeCademy Application");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
@@ -98,15 +96,9 @@ public class CursistGUI extends SceneWrapper {
         addressColumn.setPrefWidth(250);
         hometownColumn.setPrefWidth(200);
         countryColumn.setPrefWidth(150);
+        this.scene = new Scene(hBox2);
 
         populateTable(new Event(EventType.ROOT));
-
-        scene = new Scene(hBox2, 1206, 700);
-        tableView.prefHeightProperty().bind(scene.heightProperty());
-        tableView.prefWidthProperty().bind(scene.widthProperty());
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.show();
     }
 
     private void populateTable(Event e) {

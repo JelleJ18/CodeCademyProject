@@ -30,20 +30,4 @@ public class CodeCad {
     Application.launch(GuiMain.class);
   }
 
-  public static List<String> getNames() {
-    ArrayList<String> list = new ArrayList<>();
-    try {
-      String query = "SELECT * FROM cursist";
-      Statement statement = connection.createStatement();
-      ResultSet rs = statement.executeQuery(query);
-      while (rs.next()) {
-        String name = rs.getString("naam");
-        list.add(name);
-      }
-    } catch (SQLException e) {
-      System.out.println(e.getMessage());
-    }
-    return list;
-  }
-
 }
