@@ -5,5 +5,6 @@ public enum SceneType {
   CURSIST,
   CERTIFICAAT,
   ABOUT,
-  HOME
+  HOME,
+  CURSUS
 }

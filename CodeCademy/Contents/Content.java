@@ -6,7 +6,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableObjectValue;
 
 public class Content {
     private ObjectProperty<LocalDate> publicatieDatum;
@@ -19,24 +18,24 @@ public class Content {
         this.cursusnaam = new SimpleStringProperty(cursusnaam);
     }
 
-    public ObjectProperty<LocalDate> publicatieDatumProperty() {
-        return publicatieDatum;
+    public LocalDate publicatieDatumProperty() {
+        return publicatieDatum.get();
     }
 
     public void setPublicatieDatum(ObjectProperty<LocalDate> publicatieDatum) {
         this.publicatieDatum = publicatieDatum;
     }
 
-    public StringProperty getStatus() {
-        return status;
+    public String getStatus() {
+        return status.get();
     }
 
     public void setStatus(StringProperty status) {
         this.status = status;
     }
 
-    public StringProperty getCursusnaam() {
-        return cursusnaam;
+    public String getCursusnaam() {
+        return cursusnaam.get();
     }
 
     public void setCursusnaam(StringProperty cursusnaam) {

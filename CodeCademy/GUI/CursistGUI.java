@@ -104,7 +104,7 @@ public class CursistGUI extends SceneWrapper {
     }
 
     private void populateTable(Event e) {
-        tableView.setItems(FXCollections.observableArrayList(App.getCursist()));
+        tableView.setItems(FXCollections.observableArrayList(App.getCursisten()));
     }
 
     private void goHome(Event e) {

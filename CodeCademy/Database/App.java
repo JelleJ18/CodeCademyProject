@@ -4,8 +4,11 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.text.AbstractDocument.Content;
+
 import CodeCademy.Contents.Cursist;
-import CodeCademy.Contents.Cursus;
+import CodeCademy.Contents.*;
 import CodeCademy.CodeCad;
 import CodeCademy.Contents.Certificaat;
 
@@ -85,23 +88,6 @@ public class App {
     }
   }
 
-  // Cursus methoden
-  public static void createCursus(Cursus cursus) {
-    try {
-      PreparedStatement insertStatement = connection.prepareStatement(
-          "INSERT INTO Cursus(cursusnaam, onderwerp, introductietekst, niveau)\n" +
-              "VALUES(?, ?, ?, ?)");
-      insertStatement.setString(1, cursus.getCursusNaam());
-      insertStatement.setString(2, cursus.getOnderwerp());
-      insertStatement.setString(3, cursus.getIntroductietekst());
-      insertStatement.setString(4, cursus.getNiveau());
-
-      insertStatement.executeUpdate();
-    } catch (SQLException e) {
-      handleSQLException(e);
-    }
-  }
-
   public static List<Cursus> getCursussen() {
     return getCursussen(0);
   }
@@ -138,10 +124,10 @@ public class App {
           "UPDATE Cursus SET onderwerp = ?, introductietekst = ?, niveau = ?\n" +
               "WHERE cursusnaam = ?");
 
-      updateStatement.setString(1, cursus.getOnderwerp());
-      updateStatement.setString(2, cursus.getIntroductietekst());
-      updateStatement.setString(3, cursus.getNiveau());
-      updateStatement.setString(4, cursus.getCursusNaam());
+      updateStatement.setString(1, cursus.getOnderwerp().get());
+      updateStatement.setString(2, cursus.getIntroductietekst().get());
+      updateStatement.setString(3, cursus.getNiveau().get());
+      updateStatement.setString(4, cursus.getCursusnaam().get());
 
       updateStatement.executeUpdate();
     } catch (SQLException e) {
@@ -155,7 +141,7 @@ public class App {
       PreparedStatement insertStatement = connection.prepareStatement(
           "INSERT INTO Certificaat(beoordeling, medewerker_naam)\n" +
               "VALUES(?, ?)");
-      insertStatement.setString(1, certificaat.getBeoordeling());
+      insertStatement.setInt(1, certificaat.getBeoordeling());
       insertStatement.setString(2, certificaat.getMedewerkerNaam());
 
       insertStatement.executeUpdate();
@@ -182,7 +168,7 @@ public class App {
       while (rs.next()) {
         list.add(new Certificaat(
             rs.getInt("certificaatID"),
-            rs.getString("beoordeling"),
+            rs.getInt("beoordeling"),
             rs.getString("medewerker_naam")));
       }
 
@@ -199,14 +185,18 @@ public class App {
           "UPDATE Certificaat SET beoordeling = ?, medewerker_naam = ?\n" +
               "WHERE certificaatID = ?");
 
-      updateStatement.setString(1, certificaat.getBeoordeling());
+      updateStatement.setInt(1, certificaat.getBeoordeling());
       updateStatement.setString(2, certificaat.getMedewerkerNaam());
-      updateStatement.setInt(3, certificaat.getCertificaatID());
+      updateStatement.setInt(3, certificaat.getId());
 
       updateStatement.executeUpdate();
     } catch (SQLException e) {
       handleSQLException(e);
     }
+  }
+
+  public static void createContent(Content content) {
+
   }
 
   private static void handleSQLException(SQLException e) {
