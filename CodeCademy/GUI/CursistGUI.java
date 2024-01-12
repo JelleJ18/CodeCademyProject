@@ -97,6 +97,8 @@ public class CursistGUI extends SceneWrapper {
         hometownColumn.setPrefWidth(200);
         countryColumn.setPrefWidth(150);
         this.scene = new Scene(hBox2);
+        tableView.prefHeightProperty().bind(scene.heightProperty());
+        tableView.prefWidthProperty().bind(scene.widthProperty());
 
         populateTable(new Event(EventType.ROOT));
     }

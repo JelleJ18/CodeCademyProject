@@ -16,7 +16,6 @@ public class SceneManager {
 
   public SceneManager(Stage mainStage) {
     this.mainStage = mainStage;
-
     this.scenes = new HashMap<>(Map.ofEntries(
         Map.entry(SceneType.HOME, new MainHomeGUI(mainStage)),
         Map.entry(SceneType.CURSIST, new CursistGUI(mainStage))));
